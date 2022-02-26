@@ -70008,7 +70008,7 @@ var CustomPopup = function CustomPopup(props) {
     className: "content"
   }, props.children), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     className: "pu-button0",
-    onClick: reloadPage
+    onClick: closeHandler
   }, "Close"), displayButton1));
 };
 

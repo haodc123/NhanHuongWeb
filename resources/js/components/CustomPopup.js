@@ -29,7 +29,7 @@ const CustomPopup = (props) => {
       <div className="popup">
         <h2>{props.title}</h2>
         <div className="content">{props.children}</div>
-        <button className="pu-button0" onClick={reloadPage}>Close</button>
+        <button className="pu-button0" onClick={closeHandler}>Close</button>
         {displayButton1}
       </div>
     </div>
