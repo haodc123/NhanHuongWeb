@@ -3,15 +3,12 @@ import PropTypes from "prop-types";
 
 const CustomPopup = (props) => {
   const [show, setShow] = useState(false);
-
+  
   var displayButton1 = props.button1 ? <button className="pu-button1" onClick={props.handleButton1}>{props.button1}</button> : '';
 
   const closeHandler = (e) => {
     setShow(false);
     props.onClose(false);
-  };
-  const reloadPage = (e) => {
-    window.location.reload();
   };
 
   useEffect(() => {

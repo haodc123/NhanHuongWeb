@@ -26,8 +26,10 @@ function ItemBlogCatEditor(props) {
     }
     const handleAPIReceivedDelete = res => {
         setResStatus(res.status);
-        if (res.status)
+        if (res.status) {
             props.handlePopup('Announcement', 'You deleted this item successfully!');
+            props.afterUpdate(prev => prev+1);
+        }
     }
     
     // Handle Update

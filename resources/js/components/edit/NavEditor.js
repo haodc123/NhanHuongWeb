@@ -25,7 +25,7 @@ function NavEditor() {
                 <ul>
                     <li id="blogcats" className={type == 'blogcats' && active}
                         ><Link onClick={()=>setNavActive('blogcats')} to="/edit/blogcats">Blog Categories</Link></li>
-                    <li id="blogs" className={type == 'blogs' && active}
+                    <li id="blogs" className={(type == 'blogs' || !type) && active}
                         ><Link onClick={()=>setNavActive('blogs')} to="/edit/blogs">Blogs</Link></li>
                     <li id="sales" className={type == 'sales' && active}
                         ><Link onClick={()=>setNavActive('sales')} to="/edit/sales">Sales</Link></li>

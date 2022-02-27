@@ -43,7 +43,7 @@ class BlogsController extends Controller
 
     public function edt_del_blogcats(Request $request) {
         $blogcats = new BlogCats();
-        //$status = $blogcats->del($request->id);
+        $status = $blogcats->del($request->id);
 
         return response()->json([
             'status' => 1

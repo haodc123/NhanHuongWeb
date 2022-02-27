@@ -7,6 +7,7 @@ import ItemBlogCatEditor from './ItemBlogCatEditor';
 function TableBlogCatEditor(props) {
 
     const [cats, setCats] = useState([]);
+    const [afterUpdate, setAfterUpdate] = useState(0);
 
     // useEffect(() => {
     //     fetch('/edit/get_blogcats')
@@ -26,8 +27,7 @@ function TableBlogCatEditor(props) {
         f_sendAPIGet('/edit/get_blogcats', (res) => {
             setCats(res.data);
         });
-    }, []);
-    
+    }, [afterUpdate]);
 
     return (
         <div className="row">
@@ -44,10 +44,11 @@ function TableBlogCatEditor(props) {
                     </thead>
                     <tbody>
                         {cats.map(cat => (
-                            <ItemBlogCatEditor cat={cat} handlePopup={props.handlePopup} />
+                            <ItemBlogCatEditor cat={cat} afterUpdate={setAfterUpdate} handlePopup={props.handlePopup} />
                         ))}
                     </tbody>
                 </table>
+                {afterUpdate}
             </div>
         </div>
     );

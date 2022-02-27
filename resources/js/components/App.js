@@ -25,6 +25,10 @@ function App() {
         setPopupDisplay(e);
     };
 
+    const test = () => {
+        
+    }
+
     return (
         <div id="blog" className="blog-main pad-top-100 pad-bottom-100 parallax">
             <div className="container">
@@ -48,19 +52,20 @@ function App() {
                                     <ContentEditor type="sales" handlePopup={setDisplayPopup} />
                                 </Route>
                             </Switch>
+                            <CustomPopup
+                                onClose={popupCloseHandler}
+                                show={popupDisplay}
+                                title={popupTitile}
+                                button1={popupButton1}
+                                handleButton1={popupHandleButton1}
+                            >
+                                <h3>{popupContent}</h3>
+                            </CustomPopup>
                         </BrowserRouter>
 
                         {/* Test popup */}
-                        <button onClick={(e) => setPopupDisplay(!popupDisplay)}>Toggle Popup</button>
-                        <CustomPopup
-                            onClose={popupCloseHandler}
-                            show={popupDisplay}
-                            title={popupTitile}
-                            button1={popupButton1}
-                            handleButton1={popupHandleButton1}
-                        >
-                            <h3>{popupContent}</h3>
-                        </CustomPopup>
+                        <button onClick={(e) => test()}>Test</button>
+                        
 
                     </div>
                     {/* end col */}

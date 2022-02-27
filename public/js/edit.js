@@ -69891,6 +69891,8 @@ function App() {
     setPopupDisplay(e);
   };
 
+  var test = function test() {};
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     id: "blog",
     className: "blog-main pad-top-100 pad-bottom-100 parallax"
@@ -69926,17 +69928,17 @@ function App() {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_edit_ContentEditor__WEBPACK_IMPORTED_MODULE_4__["default"], {
     type: "sales",
     handlePopup: setDisplayPopup
-  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
-    onClick: function onClick(e) {
-      return setPopupDisplay(!popupDisplay);
-    }
-  }, "Toggle Popup"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CustomPopup__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_CustomPopup__WEBPACK_IMPORTED_MODULE_5__["default"], {
     onClose: popupCloseHandler,
     show: popupDisplay,
     title: popupTitile,
     button1: popupButton1,
     handleButton1: popupHandleButton1
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, popupContent))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h3", null, popupContent))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+    onClick: function onClick(e) {
+      return test();
+    }
+  }, "Test")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-lg-2 col-md-1 col-sm-1"
   }))));
 }
@@ -69987,10 +69989,6 @@ var CustomPopup = function CustomPopup(props) {
   var closeHandler = function closeHandler(e) {
     setShow(false);
     props.onClose(false);
-  };
-
-  var reloadPage = function reloadPage(e) {
-    window.location.reload();
   };
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
@@ -70195,7 +70193,13 @@ function ItemBlogCatEditor(props) {
 
   var handleAPIReceivedDelete = function handleAPIReceivedDelete(res) {
     setResStatus(res.status);
-    if (res.status) props.handlePopup('Announcement', 'You deleted this item successfully!');
+
+    if (res.status) {
+      props.handlePopup('Announcement', 'You deleted this item successfully!');
+      props.afterUpdate(function (prev) {
+        return prev + 1;
+      });
+    }
   }; // Handle Update
 
 
@@ -70300,7 +70304,7 @@ function NavEditor() {
     to: "/edit/blogcats"
   }, "Blog Categories")), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
     id: "blogs",
-    className: type == 'blogs' && active
+    className: (type == 'blogs' || !type) && active
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react_router_dom__WEBPACK_IMPORTED_MODULE_2__["Link"], {
     onClick: function onClick() {
       return setNavActive('blogs');
@@ -70388,7 +70392,12 @@ function TableBlogCatEditor(props) {
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState2 = _slicedToArray(_useState, 2),
       cats = _useState2[0],
-      setCats = _useState2[1]; // useEffect(() => {
+      setCats = _useState2[1];
+
+  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+      _useState4 = _slicedToArray(_useState3, 2),
+      afterUpdate = _useState4[0],
+      setAfterUpdate = _useState4[1]; // useEffect(() => {
   //     fetch('/edit/get_blogcats')
   //         .then(res => res.json())
   //         .then(data => {
@@ -70406,7 +70415,7 @@ function TableBlogCatEditor(props) {
     Object(_utils_Utils__WEBPACK_IMPORTED_MODULE_1__["f_sendAPIGet"])('/edit/get_blogcats', function (res) {
       setCats(res.data);
     });
-  }, []);
+  }, [afterUpdate]);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -70426,9 +70435,10 @@ function TableBlogCatEditor(props) {
   }, "Action"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, cats.map(function (cat) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_ItemBlogCatEditor__WEBPACK_IMPORTED_MODULE_3__["default"], {
       cat: cat,
+      afterUpdate: setAfterUpdate,
       handlePopup: props.handlePopup
     });
-  })))));
+  }))), afterUpdate));
 }
 
 /* harmony default export */ __webpack_exports__["default"] = (TableBlogCatEditor);
