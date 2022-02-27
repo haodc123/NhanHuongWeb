@@ -9,6 +9,7 @@ class BlogCats extends Model
 {
 
     protected $table = 'blogs_cat';
+    public $timestamps = false;
 
     // below is no need because default
     // protected $primaryKey = 'id';
@@ -22,6 +23,15 @@ class BlogCats extends Model
 
     public function del($id) {
         return self::where('id', $id)->delete();
+    }
+
+    public function update_by_id($id, $name, $order, $status) {
+        return self::where('id', $id)
+                    ->update([
+                        'blogs_cat_name' => $name,
+                        'blogs_cat_order' => $order,
+                        'blogs_cat_status' => $status,
+                    ]);
     }
 
     public function getBlogCatWithId($id) {

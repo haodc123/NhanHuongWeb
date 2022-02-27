@@ -67,6 +67,7 @@ Route::group(['middleware' => 'locale'], function() {
         // Blocats
         Route::get('get_blogcats', 'BlogsController@edt_get_blogcats');
         Route::post('del_blogcats', 'BlogsController@edt_del_blogcats');
+        Route::post('update_blogcats', 'BlogsController@edt_update_blogcats');
 
         Route::post('update_blog', 'BlogsController@update_blog');
         Route::get('filter_blogs', 'BlogsController@edt_filter_blogs')->name('edtBlogFilter');

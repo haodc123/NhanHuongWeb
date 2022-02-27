@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import use_API from '../../utils/use_API'; 
-import {f_sendAPI,f_sendAPIPost} from '../../utils/Utils'; 
+import {f_sendAPIPost} from '../../utils/Utils'; 
 import ReactDOM from 'react-dom';
 
 function ItemBlogCatEditor(props) {
@@ -13,14 +12,19 @@ function ItemBlogCatEditor(props) {
     var id = props.cat.id;
 
     // Handle Delete
-    const handleClickDelete = (_id, e) => {
+    const handleClickUpdate = (type, e) => {
         e.preventDefault();
-        if(window.confirm('Are you sure to this action?'))
-            sendDelete(_id);
+        if (type == 'delete') {
+            if(window.confirm('Are you sure to this action?'))
+            sendDelete();
+        } else {
+            sendUpdate();
+        }
+        
     }
-    const sendDelete = (_id) => {
+    const sendDelete = () => {
         const requestData = {
-            id: _id
+            id: id
         };
         f_sendAPIPost('/edit/del_blogcats', handleAPIReceivedDelete, requestData);
     }
@@ -33,9 +37,21 @@ function ItemBlogCatEditor(props) {
     }
     
     // Handle Update
-    const handleUpdate = (e) => {
-        e.preventDefault();
-        alert(status);
+    const sendUpdate = () => {
+        const requestData = {
+            id: id,
+            name: name,
+            order: order,
+            status: status
+        };
+        f_sendAPIPost('/edit/update_blogcats', handleAPIReceivedUpdate, requestData);
+    }
+    const handleAPIReceivedUpdate = res => {
+        setResStatus(res.status);
+        if (res.status) {
+            props.handlePopup('Announcement', 'You update this item successfully!');
+            props.afterUpdate(prev => prev+1);
+        }
     }
 
     return (
@@ -60,12 +76,12 @@ function ItemBlogCatEditor(props) {
                     <button
                         name="bc_action"
                         value="update"
-                        onClick={handleUpdate}
+                        onClick={() => handleClickUpdate('update', event)}
                         className="btn btn-primary">Update</button>
                     <button 
                         name="bc_action"
                         value="delete" 
-                        onClick={() => handleClickDelete(id, event)}
+                        onClick={() => handleClickUpdate('delete', event)}
                         className="btn btn-danger">Delete</button>
                     {resStatus}
                 </form>

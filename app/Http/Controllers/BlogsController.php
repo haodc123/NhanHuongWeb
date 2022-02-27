@@ -46,7 +46,20 @@ class BlogsController extends Controller
         $status = $blogcats->del($request->id);
 
         return response()->json([
-            'status' => 1
+            'status' => $status
+        ]);
+    }
+
+    public function edt_update_blogcats(Request $request) {
+        $blogcats = new BlogCats();
+        $status = $blogcats->update_by_id(
+            $request->id,
+            $request->name,
+            $request->order,
+            $request->status
+        );
+        return response()->json([
+            'status' => $status
         ]);
     }
     

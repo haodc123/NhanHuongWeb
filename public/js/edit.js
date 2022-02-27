@@ -70135,10 +70135,9 @@ function FilterBlogs() {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _utils_use_API__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/use_API */ "./resources/js/utils/use_API.js");
-/* harmony import */ var _utils_Utils__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../utils/Utils */ "./resources/js/utils/Utils.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _utils_Utils__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../utils/Utils */ "./resources/js/utils/Utils.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
+/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_2__);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -70150,7 +70149,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
 
 
 
@@ -70179,16 +70177,21 @@ function ItemBlogCatEditor(props) {
 
   var id = props.cat.id; // Handle Delete
 
-  var handleClickDelete = function handleClickDelete(_id, e) {
+  var handleClickUpdate = function handleClickUpdate(type, e) {
     e.preventDefault();
-    if (window.confirm('Are you sure to this action?')) sendDelete(_id);
+
+    if (type == 'delete') {
+      if (window.confirm('Are you sure to this action?')) sendDelete();
+    } else {
+      sendUpdate();
+    }
   };
 
-  var sendDelete = function sendDelete(_id) {
+  var sendDelete = function sendDelete() {
     var requestData = {
-      id: _id
+      id: id
     };
-    Object(_utils_Utils__WEBPACK_IMPORTED_MODULE_2__["f_sendAPIPost"])('/edit/del_blogcats', handleAPIReceivedDelete, requestData);
+    Object(_utils_Utils__WEBPACK_IMPORTED_MODULE_1__["f_sendAPIPost"])('/edit/del_blogcats', handleAPIReceivedDelete, requestData);
   };
 
   var handleAPIReceivedDelete = function handleAPIReceivedDelete(res) {
@@ -70203,9 +70206,25 @@ function ItemBlogCatEditor(props) {
   }; // Handle Update
 
 
-  var handleUpdate = function handleUpdate(e) {
-    e.preventDefault();
-    alert(status);
+  var sendUpdate = function sendUpdate() {
+    var requestData = {
+      id: id,
+      name: name,
+      order: order,
+      status: status
+    };
+    Object(_utils_Utils__WEBPACK_IMPORTED_MODULE_1__["f_sendAPIPost"])('/edit/update_blogcats', handleAPIReceivedUpdate, requestData);
+  };
+
+  var handleAPIReceivedUpdate = function handleAPIReceivedUpdate(res) {
+    setResStatus(res.status);
+
+    if (res.status) {
+      props.handlePopup('Announcement', 'You update this item successfully!');
+      props.afterUpdate(function (prev) {
+        return prev + 1;
+      });
+    }
   };
 
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, id), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
@@ -70236,13 +70255,15 @@ function ItemBlogCatEditor(props) {
   }, "Active"))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     name: "bc_action",
     value: "update",
-    onClick: handleUpdate,
+    onClick: function onClick() {
+      return handleClickUpdate('update', event);
+    },
     className: "btn btn-primary"
   }, "Update"), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
     name: "bc_action",
     value: "delete",
     onClick: function onClick() {
-      return handleClickDelete(id, event);
+      return handleClickUpdate('delete', event);
     },
     className: "btn btn-danger"
   }, "Delete"), resStatus)));
@@ -70751,70 +70772,6 @@ var f_sendAPIPost = function f_sendAPIPost(url) {
     console.log("ERROR:: ", error.response.data);
   });
 };
-
-/***/ }),
-
-/***/ "./resources/js/utils/use_API.js":
-/*!***************************************!*\
-  !*** ./resources/js/utils/use_API.js ***!
-  \***************************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-
-function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
-
-function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
-
-function _iterableToArrayLimit(arr, i) { if (typeof Symbol === "undefined" || !(Symbol.iterator in Object(arr))) return; var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
-/**
- * Custom hook for call API
- * Return response, also can pass setRefRes for return ressponse as reference variable
- * @param {*} setRefRes: setRefRes function, typically have setState inside
- */
-
-var use_API = function use_API(url) {
-  var setRefRes = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
-  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : null;
-
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(true),
-      _useState2 = _slicedToArray(_useState, 2),
-      loading = _useState2[0],
-      setLoading = _useState2[1];
-
-  var _useState3 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(null),
-      _useState4 = _slicedToArray(_useState3, 2),
-      res = _useState4[0],
-      setRes = _useState4[1];
-
-  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    console.log('Send API from custom hook...');
-    fetch(url, options).then(function (res) {
-      return res.json();
-    }).then(function (res) {
-      setRefRes(res);
-      setRes(res);
-      setLoading(false);
-    });
-  }, [url, options]);
-  return {
-    loading: loading,
-    res: res
-  };
-};
-
-/* harmony default export */ __webpack_exports__["default"] = (use_API);
 
 /***/ }),
 
