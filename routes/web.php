@@ -35,7 +35,7 @@ Route::group(['middleware' => 'locale'], function() {
     Route::post('/order', 'OrdersController@save_order');
     Route::get('/next', 'HomeController@next')->name('next');
 
-    // For Control area (admin)
+    // --------- For Control area (admin) ----------
     Route::group(['middleware'=>['auth', 'role:1'], 'prefix' => 'control'], function() {
         Route::get('/', function() {
             return redirect()->route('ctrOrderList');
@@ -48,7 +48,7 @@ Route::group(['middleware' => 'locale'], function() {
         Route::post('update_user', 'UsersController@update_user');
     });
 
-    // For Editor area (editor)
+    // --------- For Editor area (editor) -----------
     // Use React
     Route::group(['middleware'=>['auth', 'role:2'], 'prefix' => 'edit'], function() {
         Route::get('/', function() {
@@ -57,6 +57,9 @@ Route::group(['middleware' => 'locale'], function() {
         Route::get('blogs', function() {
             return view('edit.index')->with('type', "blogs");
         })->name('edtBlogPost');
+        Route::get('blog/form', function() {
+            return view('edit.index')->with('type', "blogs");
+        });
         Route::get('blogcats', function() {
             return view('edit.index')->with('type', "blogcats");
         })->name('edtBlogCat');
@@ -66,10 +69,12 @@ Route::group(['middleware' => 'locale'], function() {
         // JSON returned
         // Blocats
         Route::get('get_blogcats', 'BlogsController@edt_get_blogcats');
-        Route::post('del_blogcats', 'BlogsController@edt_del_blogcats');
-        Route::post('update_blogcats', 'BlogsController@edt_update_blogcats');
-
-        Route::post('update_blog', 'BlogsController@update_blog');
+        Route::post('del_blogcat', 'BlogsController@edt_del_blogcat');
+        Route::post('update_blogcat', 'BlogsController@edt_update_blogcat');
+        // Blogs
+        Route::get('get_blogs', 'BlogsController@edt_get_blogs');
+        Route::post('del_blog', 'BlogsController@edt_del_blog');
+        Route::post('update_blog', 'BlogsController@edt_update_blog');
         Route::get('filter_blogs', 'BlogsController@edt_filter_blogs')->name('edtBlogFilter');
     });
 });

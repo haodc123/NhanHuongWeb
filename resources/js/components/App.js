@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import ReactDOM from 'react-dom';
+import { BrowserRouter, Switch, Route, Link } from 'react-router-dom';
+import TitleEditor from './edit//TitleEditor';
 import NavEditor from './edit/NavEditor';
 import ContentEditor from './edit/ContentEditor';
 import CustomPopup from "./CustomPopup";
+import FormBlogEditor from './edit/FormBlogEditor';
 
 function App() {
 
@@ -25,10 +26,6 @@ function App() {
         setPopupDisplay(e);
     };
 
-    const test = () => {
-        
-    }
-
     return (
         <div id="blog" className="blog-main pad-top-100 pad-bottom-100 parallax">
             <div className="container">
@@ -38,18 +35,27 @@ function App() {
                         
                         <BrowserRouter>
                             <NavEditor/>
+                            
                             <Switch>
                                 <Route exact path="/edit/">
+                                    <TitleEditor type="blogs"/>
                                     <ContentEditor type="blogs" handlePopup={setDisplayPopup} />
                                 </Route>
                                 <Route exact path="/edit/blogs">
+                                    <TitleEditor type="blogs"/>
                                     <ContentEditor type="blogs" handlePopup={setDisplayPopup} />
                                 </Route>
                                 <Route exact path="/edit/blogcats">
+                                    <TitleEditor type="blogcats"/>
                                     <ContentEditor type="blogcats" handlePopup={setDisplayPopup} />
                                 </Route>
                                 <Route exact path="/edit/sales">
+                                    <TitleEditor type="sales"/>
                                     <ContentEditor type="sales" handlePopup={setDisplayPopup} />
+                                </Route>
+                                <Route exact path="/edit/blog/form">
+                                    <TitleEditor type="blogs"/>
+                                    <FormBlogEditor />
                                 </Route>
                             </Switch>
                             <CustomPopup
@@ -61,11 +67,8 @@ function App() {
                             >
                                 <h3>{popupContent}</h3>
                             </CustomPopup>
+                            <Link to="/edit/blog/form">Test link</Link>
                         </BrowserRouter>
-
-                        {/* Test popup */}
-                        <button onClick={(e) => test()}>Test</button>
-                        
 
                     </div>
                     {/* end col */}

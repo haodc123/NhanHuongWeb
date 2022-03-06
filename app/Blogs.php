@@ -21,11 +21,19 @@ class Blogs extends Model
         return self::all();
     }
 
+    public function getAllBlogsPagination() {
+        return self::paginate(\Config::get('constants.general.per_page'));
+    }
+
     public function getSomeBlogs($n) {
         return self::orderBy('id', 'desc')->take($n)->get();
     }
 
     public function getBlogWithTitle($title) {
         return self::where('blog_title_slug', $title)->first();
+    }
+
+    public function del($id) {
+        return self::where('id', $id)->delete();
     }
 }

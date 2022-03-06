@@ -33,6 +33,6 @@ export const f_sendAPIPost = (url, setRefRes = null, reqData = null) => {
             }    
         )
         .catch(error => {
-            console.log("ERROR:: ", error.response.data);
+            console.log("ERROR:: ", error.response);
         });
 }

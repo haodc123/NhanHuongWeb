@@ -26,13 +26,13 @@ function ItemBlogCatEditor(props) {
         const requestData = {
             id: id
         };
-        f_sendAPIPost('/edit/del_blogcats', handleAPIReceivedDelete, requestData);
+        f_sendAPIPost('/edit/del_blogcat', handleAPIReceivedDelete, requestData);
     }
     const handleAPIReceivedDelete = res => {
         setResStatus(res.status);
         if (res.status) {
             props.handlePopup('Announcement', 'You deleted this item successfully!');
-            props.afterUpdate(prev => prev+1);
+            props.needUpdate(prev => prev+1);
         }
     }
     
@@ -44,7 +44,7 @@ function ItemBlogCatEditor(props) {
             order: order,
             status: status
         };
-        f_sendAPIPost('/edit/update_blogcats', handleAPIReceivedUpdate, requestData);
+        f_sendAPIPost('/edit/update_blogcat', handleAPIReceivedUpdate, requestData);
     }
     const handleAPIReceivedUpdate = res => {
         setResStatus(res.status);

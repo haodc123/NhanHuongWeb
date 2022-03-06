@@ -41,7 +41,7 @@ class BlogsController extends Controller
         ]);
     }
 
-    public function edt_del_blogcats(Request $request) {
+    public function edt_del_blogcat(Request $request) {
         $blogcats = new BlogCats();
         $status = $blogcats->del($request->id);
 
@@ -50,7 +50,7 @@ class BlogsController extends Controller
         ]);
     }
 
-    public function edt_update_blogcats(Request $request) {
+    public function edt_update_blogcat(Request $request) {
         $blogcats = new BlogCats();
         $status = $blogcats->update_by_id(
             $request->id,
@@ -63,4 +63,25 @@ class BlogsController extends Controller
         ]);
     }
     
+    public function edt_get_blogs() {
+        $blogs = new Blogs();
+        $blogcats = new BlogCats();
+        $res = [
+            'blogs' => $blogs->getAllBlogsPagination(), 
+            'blogcats' => $blogcats->getAllBlogCats()
+        ];
+        return response()->json([
+            'data' => $res, 
+            'status' => ResStatus::Success
+        ]);
+    }
+
+    public function edt_del_blog(Request $request) {
+        $blogs = new Blogs();
+        $status = $blogs->del($request->id);
+
+        return response()->json([
+            'status' => $status
+        ]);
+    }
 }

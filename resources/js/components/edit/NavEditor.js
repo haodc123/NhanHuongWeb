@@ -1,13 +1,12 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Link } from 'react-router-dom';
 
-const url = window.location.href;
-var f = url.split('/'); // ['http:', '', '127.0.0.1:8000', 'edit', 'blogs']
-var area = f[3]; // edit
-var type = f[4]; // blogs | blogcats | sales
-
 function NavEditor() {
+
+    const url = window.location.href;
+    var f = url.split('/'); // ['http:', '', '127.0.0.1:8000', 'edit', 'blogs']
+    var type = f[4]; // blogs | blogcats | sales
+
     var active = 'active';
     var types = ['blogcats', 'blogs', 'sales'];
     const setNavActive = (_type) => {

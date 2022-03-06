@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react';
 // import use_API from '../../utils/use_API'; 
 import {f_sendAPIGet} from '../../utils/Utils'; 
-import ReactDOM from 'react-dom';
 import ItemBlogCatEditor from './ItemBlogCatEditor';
 
 function TableBlogCatEditor(props) {
 
     const [cats, setCats] = useState([]);
-    const [afterUpdate, setAfterUpdate] = useState(0);
+    const [needUpdate, setNeedUpdate] = useState(0);
 
     // useEffect(() => {
     //     fetch('/edit/get_blogcats')
@@ -27,7 +26,7 @@ function TableBlogCatEditor(props) {
         f_sendAPIGet('/edit/get_blogcats', (res) => {
             setCats(res.data);
         });
-    }, [afterUpdate]);
+    }, [needUpdate]);
 
     return (
         <div className="row">
@@ -44,11 +43,10 @@ function TableBlogCatEditor(props) {
                     </thead>
                     <tbody>
                         {cats.map(cat => (
-                            <ItemBlogCatEditor cat={cat} afterUpdate={setAfterUpdate} handlePopup={props.handlePopup} />
+                            <ItemBlogCatEditor key={cat.id} cat={cat} needUpdate={setNeedUpdate} handlePopup={props.handlePopup} />
                         ))}
                     </tbody>
                 </table>
-                {afterUpdate}
             </div>
         </div>
     );
