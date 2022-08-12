@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: Feb 27, 2022 at 05:15 PM
+-- Generation Time: Jul 16, 2022 at 03:21 PM
 -- Server version: 5.7.26
 -- PHP Version: 7.3.5
 
@@ -242,8 +242,8 @@ INSERT INTO `users` (`id`, `user_name`, `user_email`, `user_tel`, `user_addr`, `
 (5, 'Nguyên Thị', 'usner@gmail.com', '1222122112', 'HCM city, q3', 0, 5, NULL, NULL, NULL, '0', NULL, '2020-12-26 10:10:07', '2020-12-26 10:26:59', NULL),
 (6, 'Nguyên Thị', 'usehhr@gmail.com', '1222122112', 'HCM city, q3', 0, 5, NULL, NULL, NULL, '0', NULL, '2020-12-26 10:10:07', '2020-12-26 10:26:59', NULL),
 (7, 'andjfn', 'uiiser@gmail.com', '1232334', 'fmgkkbgj', 0, 4, NULL, NULL, NULL, '0', NULL, '2020-12-26 08:50:43', '2020-12-26 08:50:43', NULL),
-(8, 'Hao3', 'haodcdng@gmail.com', '032232332144', 'vfv444', 1, NULL, '$2y$10$xtNk9MKkpRpA2FD2kYRr4.o/030KgL38Ticjy33HgKwfNFol6Lp5q', NULL, NULL, NULL, NULL, '2022-01-28 14:14:49', '2022-01-30 08:26:36', NULL),
-(9, 'user', 'user@gmail.com', '0322323321', NULL, 2, NULL, '$2y$10$xtNk9MKkpRpA2FD2kYRr4.o/030KgL38Ticjy33HgKwfNFol6Lp5q', NULL, NULL, 'X2e19P0T8eYZ0sPUlAApEUUKR6V7O6zxcjDpFUIeMuRnq3A08fiV3EiyQr0o', NULL, '2022-01-28 14:14:49', '2022-01-28 14:14:49', NULL),
+(8, 'Hao3', 'haodcdng@gmail.com', '032232332144', 'vfv444', 1, NULL, '$2y$10$xtNk9MKkpRpA2FD2kYRr4.o/030KgL38Ticjy33HgKwfNFol6Lp5q', NULL, NULL, '3JtYqG0Jut0UIEydm4LIBmysXkQagU0faMAbXE9sFRBpoIMFqyycHECYe26b', NULL, '2022-01-28 14:14:49', '2022-01-30 08:26:36', NULL),
+(9, 'user', 'user@gmail.com', '0322323321', NULL, 2, NULL, '$2y$10$xtNk9MKkpRpA2FD2kYRr4.o/030KgL38Ticjy33HgKwfNFol6Lp5q', NULL, NULL, 'ofKyJBtoWstf5Gme4cqXnMwJyxr0MYoAh5xrBgGLOP6DOfPZSjqeE1WtfUnc', NULL, '2022-01-28 14:14:49', '2022-01-28 14:14:49', NULL),
 (11, 'Lan', '', '6578887688', 'hcmc11', 0, NULL, NULL, NULL, NULL, NULL, NULL, '2022-01-30 08:40:21', '2022-01-30 08:53:45', NULL);
 COMMIT;
 
