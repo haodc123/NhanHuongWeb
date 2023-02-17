@@ -1,0 +1,12 @@
+name: Call a reusable workflow
+
+on:
+  push:
+    branches: master
+
+jobs:
+  call-workflow-test:
+    permissions:
+      contents: read
+      pull-requests: write
+    uses: dtvn-duytq7/example-repo/.github/workflows/workflow-test.yaml@master
